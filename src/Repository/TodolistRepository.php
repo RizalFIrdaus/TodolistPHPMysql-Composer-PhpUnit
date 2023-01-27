@@ -9,6 +9,7 @@ interface TodolistRepositoryInterface
 {
     public function add(Todo $todo): void;
     public function remove(int $id): bool;
+    public function getAll(): array;
 }
 
 
@@ -56,5 +57,17 @@ class TodolistRepository implements TodolistRepositoryInterface
             // Select id tidak ada
             return false;
         }
+    }
+
+    public function getAll(): array
+    {
+        $todolist = array();
+        $sql = "SELECT id,todo FROM todo";
+        $statement = $this->connection->prepare($sql);
+        $statement->execute();
+        foreach ($statement as $key => $value) {
+            $todolist[$key] = $value;
+        }
+        return $todolist;
     }
 }
