@@ -1,0 +1,19 @@
+{
+    "name": "rizal/todo",
+    "description": "Buat aplikasi todolist menggunakan konsep oop, database mysql, composer dan unit testing",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "RizalFIrdaus",
+            "email": "rizal.firdaus117@gmail.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit" : "9.5.28"
+    }
+}
