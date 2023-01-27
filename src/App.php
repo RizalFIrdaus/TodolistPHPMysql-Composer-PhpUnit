@@ -20,5 +20,4 @@ class App
         $view->showTodolist();
     }
 }
-
 $app = new App();
