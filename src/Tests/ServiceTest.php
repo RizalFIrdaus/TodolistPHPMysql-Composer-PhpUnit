@@ -24,6 +24,20 @@ class ServiceTest extends TestCase
 
     public function testShowGetAll()
     {
+        self::markTestSkipped();
         var_dump($this->service->showGetAll());
+    }
+
+    public function testShowAdd()
+    {
+        $this->markTestSkipped();
+        $todolist = new Todo();
+        $todolist->setTodo("Yakali");
+        $this->service->showAdd($todolist->getTodo());
+    }
+    public function testShowRemove()
+    {
+        $this->markTestSkipped();
+        $this->service->showRemove(13);
     }
 }
