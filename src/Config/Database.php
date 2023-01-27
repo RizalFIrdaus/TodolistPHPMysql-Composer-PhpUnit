@@ -22,5 +22,3 @@ class Database extends PDO
         }
     }
 }
-
-Database::getConnection();
