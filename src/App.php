@@ -2,6 +2,8 @@
 
 namespace App;
 
+require_once "../vendor/autoload.php";
+
 use App\Repository\TodolistRepository;
 use App\Config\Database;
 use App\Service\TodolistService;
@@ -18,3 +20,5 @@ class App
         $view->showTodolist();
     }
 }
+
+$app = new App();
