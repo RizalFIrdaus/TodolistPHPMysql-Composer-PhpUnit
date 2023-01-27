@@ -4,9 +4,9 @@ namespace App\Entity;
 
 class Todo
 {
-    public function __construct(private string $todo, private int $id)
-    {
-    }
+    private string $todo;
+    private int $id;
+
     public function getTodo(): string
     {
         return $this->todo;

@@ -2,13 +2,16 @@
 
 namespace App\Repository;
 
-interface TodolistRepository
+use App\Entity\Todo;
+use PDOException;
+
+interface TodolistRepositoryInterface
 {
-    public function add(Todo $todo);
+    public function add(Todo $todo): void;
 }
 
 
-class TodolistRepositoryImp implements TodolistRepository
+class TodolistRepository implements TodolistRepositoryInterface
 {
 
     /**
@@ -22,10 +25,15 @@ class TodolistRepositoryImp implements TodolistRepository
     /**
      * Menambahkan todo kedalam database
      */
-    public function add(Todo $todo)
+    public function add(Todo $todo): void
     {
         $sql = "INSERT INTO todo (todo) VALUES (?)";
-        $statement = $this->connection->prepare($sql);
-        $statement->execute([$todo->getTodo()]);
+        try {
+            $statement = $this->connection->prepare($sql);
+            $statement->execute([$todo->getTodo()]);
+            echo "Success Added Todo" . PHP_EOL;
+        } catch (PDOException $exception) {
+            echo "Error : {$exception->getMessage()}";
+        }
     }
 }
