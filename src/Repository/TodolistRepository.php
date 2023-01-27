@@ -8,6 +8,7 @@ use PDOException;
 interface TodolistRepositoryInterface
 {
     public function add(Todo $todo): void;
+    public function remove(int $id): bool;
 }
 
 
@@ -34,6 +35,26 @@ class TodolistRepository implements TodolistRepositoryInterface
             echo "Success Added Todo" . PHP_EOL;
         } catch (PDOException $exception) {
             echo "Error : {$exception->getMessage()}";
+        }
+    }
+
+    /**
+     * Method menghapus todo dari database 
+     * Return Bool
+     */
+    public function remove(int $id): bool
+    {
+        $sql = "SELECT id FROM todo WHERE id=?";
+        $statement = $this->connection->prepare($sql);
+        $statement->execute([$id]);
+        if ($statement->fetch()) {
+            $sql = "DELETE FROM todo WHERE id=?";
+            $st = $this->connection->prepare($sql);
+            $st->execute([$id]);
+            return true;
+        } else {
+            // Select id tidak ada
+            return false;
         }
     }
 }

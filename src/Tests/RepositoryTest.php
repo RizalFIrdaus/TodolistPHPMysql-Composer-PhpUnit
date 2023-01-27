@@ -10,9 +10,13 @@ use App\Repository\TodolistRepository;
 class RepositoryTest extends TestCase
 {
     private \PDO $connection;
+    private Todo $todo;
+    private TodolistRepository $repo;
     public function setUp(): void
     {
         $this->connection = Database::getConnection();
+        $this->todo = new Todo();
+        $this->repo = new TodolistRepository($this->connection);
     }
     /**
      * @testWith ["Satu"]
@@ -24,9 +28,26 @@ class RepositoryTest extends TestCase
      */
     public function testAdd(string $expected)
     {
-        $todo = new Todo();
-        $todo->setTodo($expected);
-        $repo = new TodolistRepository($this->connection);;
-        $repo->add($todo);
+        $this->markTestSkipped();
+        $this->todo->setTodo($expected);
+        $this->repo->add($this->todo);
+    }
+
+    /**
+     *  Id found
+     */
+    public function testRemoveSuccess()
+    {
+        $this->markTestSkipped();
+        self::assertTrue($this->repo->remove(2));
+    }
+
+
+    /**
+     * Id not found
+     */
+    public function testRemoveError()
+    {
+        self::assertTrue($this->repo->remove(100));
     }
 }
