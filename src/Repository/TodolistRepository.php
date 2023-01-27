@@ -62,11 +62,14 @@ class TodolistRepository implements TodolistRepositoryInterface
     public function getAll(): array
     {
         $todolist = array();
-        $sql = "SELECT id,todo FROM todo";
+        $sql = "SELECT * FROM todo";
         $statement = $this->connection->prepare($sql);
         $statement->execute();
-        foreach ($statement as $key => $value) {
-            $todolist[$key] = $value;
+        foreach ($statement as $row) {
+            $todo = new Todo();
+            $todo->setId($row["id"]);
+            $todo->setTodo($row["todo"]);
+            $todolist[] = $todo;
         }
         return $todolist;
     }
